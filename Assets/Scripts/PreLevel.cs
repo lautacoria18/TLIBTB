@@ -14,7 +14,7 @@ public class PreLevel : MonoBehaviour
 
 
     private GameObject textClear, textRestart, textDrop;
-    private GameObject buttonClear, buttonRestart, buttonDrop;
+    private GameObject buttonClear, buttonRestart, buttonDrop, buttonPause;
     Sprite buttonSprite;
     Font font;
 
@@ -38,6 +38,7 @@ public class PreLevel : MonoBehaviour
         buttonClear = GameObject.Find("Clear");
         buttonRestart = GameObject.Find("Restart");
         buttonDrop = GameObject.Find("Drop");
+        buttonPause = GameObject.Find("Pause");
         font = Resources.Load<Font>("Font");
 
         textClear.GetComponent<Text>().font = font;
@@ -58,7 +59,14 @@ public class PreLevel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Ball.levelWin) {
+
+            buttonClear.SetActive(false);
+            buttonDrop.SetActive(false);
+            buttonRestart.SetActive(false);
+
+            buttonPause.SetActive(false);
+        }
     }
 
     public void restartPosition() {
@@ -70,7 +78,7 @@ public class PreLevel : MonoBehaviour
         ball.GetComponent<Rigidbody2D>().angularVelocity = 0f;
         ball.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
         ball.transform.position = startPosition;
-
+        Ball.starTaken = false;
 
     }
 
